@@ -15,3 +15,8 @@ def mysum(request, numbers):
 
     return HttpResponse(result)
 
+
+def hello(request, name, age):
+    message = '안녕하세요. {}. 저는 {}살입니다.'.format(name, age)
+    return HttpResponse(message)
+
