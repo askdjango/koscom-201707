@@ -1,27 +1,24 @@
 import json
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework import mixins
+from rest_framework import viewsets
 from .models import Post
 from .serializers import PostSerializer
 
 
-@csrf_exempt
-def post_list(request):
-    if request.method == 'GET':
-        # 글목록
-        data = []
-        for post in Post.objects.all():
-            data.append({
-                'title': post.title,
-                'content': post.content,
-            })
-        json_string = json.dumps(data, ensure_ascii=False)
-        return HttpResponse(json_string)
+# class PostListView(generics.ListCreateAPIView):
 
-    elif request.method == 'POST':
-        serializer = PostSerializer(data=request.POST)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+'''
+post_list = PostListView.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+'''
 
