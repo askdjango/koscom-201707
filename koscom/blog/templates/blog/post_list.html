@@ -2,6 +2,11 @@
 
 <p>파이썬/장고 강의</p>
 
+<form action="" method="get">
+    <input type="text" name="query" value="{{ query }}" />
+    <input type="submit" value="검색" />
+</form>
+
 <table>
 {% for post in post_list %}
 <tr>
