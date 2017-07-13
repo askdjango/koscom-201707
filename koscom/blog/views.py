@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Post
+from .forms import PostForm
 
 
 def post_list(request):
@@ -14,6 +15,22 @@ def post_list(request):
         'post_list': qs,
         'query': query,
     })
+
+def post_new(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            # form.cleaned_data
+            # {'title': '', 'content': '', 'author': ''}
+            form.save()  # ModelForm에서만 지원되는 함수
+            return redirect('/blog/')
+    else:  # GET이라면
+        form = PostForm()
+
+    return render(request, 'blog/post_form.html', {
+        'form': form,
+    })
+
 
 def mysum(request, numbers):
     # numbers = "10/20/30/40//"
