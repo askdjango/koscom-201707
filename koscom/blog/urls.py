@@ -1,7 +1,10 @@
 from django.conf.urls import url
 from . import views
+from . import api
 
 urlpatterns = [
+    url(r'^posts/$', api.post_list),
+
     url(r'^$', views.post_list),
     url(r'^new/$', views.post_new),
     url(r'^sum/(?P<numbers>[0-9/]+)/$', views.mysum),
