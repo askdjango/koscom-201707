@@ -2,3 +2,13 @@
 
 <p>파이썬/장고 강의</p>
 
+<table>
+{% for post in post_list %}
+<tr>
+    <td>
+        {{ post.title }}
+    </td>
+</tr>
+{% endfor %}
+</table>
+
