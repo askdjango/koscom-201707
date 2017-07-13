@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.views.generic import CreateView
 from .models import Post
 from .forms import PostForm
 
@@ -16,6 +17,7 @@ def post_list(request):
         'query': query,
     })
 
+'''
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -30,6 +32,9 @@ def post_new(request):
     return render(request, 'blog/post_form.html', {
         'form': form,
     })
+'''
+
+post_new = CreateView.as_view(model=Post, form_class=PostForm, success_url='/blog/')
 
 
 def mysum(request, numbers):
